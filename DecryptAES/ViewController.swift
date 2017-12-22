@@ -5,6 +5,8 @@
 //  Created by Barbara Shiller on 12/21/17.
 //  Copyright © 2017 Ben Shiller. All rights reserved.
 //
+//  CryptoSwift is developed by Marcin Krzyżanowski here: https://github.com/krzyzanowskim/CryptoSwift
+//
 
 import UIKit
 import CryptoSwift
@@ -21,30 +23,32 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
-    extension String {
-        func base64Decoded() -> String? {
-            if let data = Data(base64Encoded: self) {
-                return String(data: data, encoding: .utf8)
-            }
-            return nil
-        }
-    }
-    
     @IBAction func decryptButtonPushed(_ sender: UIButton) {
         view.endEditing(true)
         // check inputs
         do {
-            if inputBox.hasText && keyBox.hasText {
+            if inputBox.hasText {
                 let encryptedMessage = String(inputBox.text)
-                //let target = "\n\n\n"
                 if encryptedMessage.contains("\r\n\r\n") {
-                    //let endOfCiphertext = encryptedMessage.index(encryptedMessage.endIndex, offsetBy: -18)
-                    //let ciphertext = String(encryptedMessage.prefix(upTo: endOfCiphertext))
                     var splitMessage = encryptedMessage.split(separator: "\r\n")
-                    let ciphertextAsData = Data(base64Encoded: String(splitMessage[0]))
+                    let ciphertext = Data(base64Encoded: String(splitMessage[0]))?.bytes
                     let ivAsArray = Data(base64Encoded: String(splitMessage[1]))?.bytes
-                    let keyAsArray: Array<UInt8> = keyBox.text!.bytes
-                    
+                    if ivAsArray?.count == 16 {
+                        let keyAsArray: Array<UInt8> = keyBox.text!.bytes
+                        let paddedKey = Padding.pkcs7.add(to: keyAsArray, blockSize: 32)
+                        let aes = try AES(key: paddedKey, blockMode: .OFB(iv: ivAsArray!), padding: .noPadding)
+                        let plaintextAsArray = try aes.decrypt(ciphertext!)
+                        let plaintext = String(data: Data(plaintextAsArray), encoding: .utf8)
+                        if plaintext != nil {
+                            outputBox.text = plaintext
+                        }
+                        else {
+                            outputBox.text = "Password is incorrect."
+                        }
+                    }
+                    else {
+                        outputBox.text = "IV is incorrect."
+                    }
                 }
                 else {
                     outputBox.text = "Please paste the message and enter the key."
@@ -55,9 +59,8 @@ class ViewController: UIViewController {
             }
         }
         catch {
-            
+            outputBox.text = "There was an error."
         }
-        
     }
     
     override func viewDidLoad() {
@@ -72,7 +75,5 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 

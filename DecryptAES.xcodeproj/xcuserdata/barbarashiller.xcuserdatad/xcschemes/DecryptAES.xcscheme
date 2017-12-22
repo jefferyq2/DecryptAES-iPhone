@@ -20,20 +20,6 @@
                ReferencedContainer = "container:DecryptAES.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "754BE45419693E190098E6F3"
-               BuildableName = "CryptoSwift.framework"
-               BlueprintName = "CryptoSwift"
-               ReferencedContainer = "container:CryptoSwift/CryptoSwift.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
