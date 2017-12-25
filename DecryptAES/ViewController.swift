@@ -30,7 +30,14 @@ class ViewController: UIViewController {
         do {
             if inputBox.hasText {
                 if settingToggle.selectedSegmentIndex == 0 { // Encrypt
-                    let plaintext = String(inputBox.text)
+                    let plaintext = String(inputBox.text).bytes
+                    let keyAsArray: Array<UInt8> = keyBox.text!.bytes
+                    let paddedKey = Padding.pkcs7.add(to: keyAsArray, blockSize: 32)
+                    let iv: Array<UInt8> = AES.randomIV(AES.blockSize)
+                    let encrypted = try AES(key: paddedKey, blockMode: .OFB(iv: iv), padding: .noPadding).encrypt(plaintext)
+                    let encryptedBase64 = encrypted.toBase64()
+                    let ivBase64 = iv.toBase64()
+                    outputBox.text = encryptedBase64! + "\r\n\r\n\r\n" + ivBase64!
                 }
                 if settingToggle.selectedSegmentIndex == 1 { // Decrypt
                     let encryptedMessage = String(inputBox.text)
@@ -72,9 +79,13 @@ class ViewController: UIViewController {
     @IBAction func settingChanged(_ sender: Any) {
         if settingToggle.selectedSegmentIndex == 0 {
             decryptButton.setTitle("Encrypt", for: UIControlState.normal)
+            inputBox.text = "Type message here..."
+            outputBox.text = "Encrypted text will appear here."
         }
         if settingToggle.selectedSegmentIndex == 1 {
             decryptButton.setTitle("Decrypt", for: UIControlState.normal)
+            inputBox.text = "Paste encrypted text here."
+            outputBox.text = "Decrypted text will appear here."
         }
     }
     
@@ -82,10 +93,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        inputBox.text = "Paste encrypted message here..."
-        keyBox.placeholder = "Enter key here"
-        outputBox.text = "Decrypted message will display here..."
-        decryptButton.setTitle("Encrypt", for: UIControlState.normal)
     }
 
     override func didReceiveMemoryWarning() {
