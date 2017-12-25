@@ -13,6 +13,7 @@ import CryptoSwift
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var settingToggle: UISegmentedControl!
     @IBOutlet weak var inputBox: UITextView!
     @IBOutlet weak var keyBox: UITextField!
     @IBOutlet weak var decryptButton: UIButton!
@@ -28,30 +29,35 @@ class ViewController: UIViewController {
         // check inputs
         do {
             if inputBox.hasText {
-                let encryptedMessage = String(inputBox.text)
-                if encryptedMessage.contains("\r\n\r\n") {
-                    var splitMessage = encryptedMessage.split(separator: "\r\n")
-                    let ciphertext = Data(base64Encoded: String(splitMessage[0]))?.bytes
-                    let ivAsArray = Data(base64Encoded: String(splitMessage[1]))?.bytes
-                    if ivAsArray?.count == 16 {
-                        let keyAsArray: Array<UInt8> = keyBox.text!.bytes
-                        let paddedKey = Padding.pkcs7.add(to: keyAsArray, blockSize: 32)
-                        let aes = try AES(key: paddedKey, blockMode: .OFB(iv: ivAsArray!), padding: .noPadding)
-                        let plaintextAsArray = try aes.decrypt(ciphertext!)
-                        let plaintext = String(data: Data(plaintextAsArray), encoding: .utf8)
-                        if plaintext != nil {
-                            outputBox.text = plaintext
+                if settingToggle.selectedSegmentIndex == 0 { // Encrypt
+                    let plaintext = String(inputBox.text)
+                }
+                if settingToggle.selectedSegmentIndex == 1 { // Decrypt
+                    let encryptedMessage = String(inputBox.text)
+                    if encryptedMessage.contains("\r\n\r\n") {
+                        var splitMessage = encryptedMessage.split(separator: "\r\n")
+                        let ciphertext = Data(base64Encoded: String(splitMessage[0]))?.bytes
+                        let ivAsArray = Data(base64Encoded: String(splitMessage[1]))?.bytes
+                        if ivAsArray?.count == 16 {
+                            let keyAsArray: Array<UInt8> = keyBox.text!.bytes
+                            let paddedKey = Padding.pkcs7.add(to: keyAsArray, blockSize: 32)
+                            let aes = try AES(key: paddedKey, blockMode: .OFB(iv: ivAsArray!), padding: .noPadding)
+                            let plaintextAsArray = try aes.decrypt(ciphertext!)
+                            let plaintext = String(data: Data(plaintextAsArray), encoding: .utf8)
+                            if plaintext != nil {
+                                outputBox.text = plaintext
+                            }
+                            else {
+                                outputBox.text = "Password is incorrect."
+                            }
                         }
                         else {
-                            outputBox.text = "Password is incorrect."
+                            outputBox.text = "IV is incorrect."
                         }
                     }
                     else {
-                        outputBox.text = "IV is incorrect."
+                        outputBox.text = "Please paste the message and enter the key."
                     }
-                }
-                else {
-                    outputBox.text = "Please paste the message and enter the key."
                 }
             }
             else {
@@ -63,12 +69,23 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func settingChanged(_ sender: Any) {
+        if settingToggle.selectedSegmentIndex == 0 {
+            decryptButton.setTitle("Encrypt", for: UIControlState.normal)
+        }
+        if settingToggle.selectedSegmentIndex == 1 {
+            decryptButton.setTitle("Decrypt", for: UIControlState.normal)
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         inputBox.text = "Paste encrypted message here..."
         keyBox.placeholder = "Enter key here"
         outputBox.text = "Decrypted message will display here..."
+        decryptButton.setTitle("Encrypt", for: UIControlState.normal)
     }
 
     override func didReceiveMemoryWarning() {

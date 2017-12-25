@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,78 +14,82 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DecryptAES" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4mf-3u-dm4">
-                                <rect key="frame" x="122" y="318" width="122" height="30"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H1x-JQ-B4e">
+                                <rect key="frame" x="19" y="27" width="374" height="682"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XC2-l2-aPr">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="29"/>
+                                        <segments>
+                                            <segment title="Encrypt"/>
+                                            <segment title="Decrypt"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="settingChanged:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="ZR3-ag-zXc"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="W6w-Ex-6JB">
+                                        <rect key="frame" x="0.0" y="36" width="374" height="300"/>
+                                        <color key="backgroundColor" red="0.98958333333333337" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VUd-JX-5BE" userLabel="Key Stack View">
+                                        <rect key="frame" x="0.0" y="344" width="374" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4u-yt-LbH" userLabel="Key Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="28.333333333333332" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Key goes here" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4mf-3u-dm4">
+                                                <rect key="frame" x="36.333333333333343" y="0.0" width="274.66666666666663" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0g4-yU-Fcl" userLabel="Button">
+                                                <rect key="frame" x="319" y="0.0" width="55" height="30"/>
+                                                <state key="normal" title="Decrypt"/>
+                                                <connections>
+                                                    <action selector="decryptButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y2W-4L-ImN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bix-VT-GtJ">
+                                        <rect key="frame" x="0.0" y="382" width="374" height="300"/>
+                                        <color key="backgroundColor" red="0.98958333333333337" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8i1-mB-2o1"/>
-                                    <constraint firstAttribute="width" constant="122" id="VV8-QO-Oki"/>
+                                    <constraint firstItem="W6w-Ex-6JB" firstAttribute="height" secondItem="bix-VT-GtJ" secondAttribute="height" id="iG5-Nh-8Dd"/>
                                 </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M4u-yt-LbH">
-                                <rect key="frame" x="84.5" y="322.5" width="29" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="W6w-Ex-6JB">
-                                <rect key="frame" x="67.5" y="175" width="240" height="128"/>
-                                <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="eif-fJ-doF"/>
-                                    <constraint firstAttribute="height" constant="128" id="xLb-X5-ILQ"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="bix-VT-GtJ">
-                                <rect key="frame" x="67.5" y="363" width="240" height="128"/>
-                                <color key="backgroundColor" name="controlHighlightColor" catalog="System" colorSpace="catalog"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="0yb-73-eKo"/>
-                                    <constraint firstAttribute="width" constant="240" id="Bvi-ec-wfo"/>
-                                </constraints>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0g4-yU-Fcl">
-                                <rect key="frame" x="252" y="318" width="55" height="30"/>
-                                <state key="normal" title="Decrypt">
-                                    <color key="titleColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
-                                </state>
-                                <connections>
-                                    <action selector="decryptButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y2W-4L-ImN"/>
-                                </connections>
-                            </button>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" name="controlShadowColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" red="0.98958333333333337" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0g4-yU-Fcl" firstAttribute="centerY" secondItem="M4u-yt-LbH" secondAttribute="centerY" id="2GW-jf-wvZ"/>
-                            <constraint firstItem="4mf-3u-dm4" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2XZ-j3-CJf"/>
-                            <constraint firstItem="bix-VT-GtJ" firstAttribute="top" secondItem="4mf-3u-dm4" secondAttribute="bottom" constant="15" id="Bbc-Bl-5xa"/>
-                            <constraint firstItem="bix-VT-GtJ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="H3F-z5-7hN"/>
-                            <constraint firstItem="W6w-Ex-6JB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jb1-q3-1l4"/>
-                            <constraint firstItem="4mf-3u-dm4" firstAttribute="centerY" secondItem="M4u-yt-LbH" secondAttribute="centerY" id="clO-gU-s5s"/>
-                            <constraint firstItem="4mf-3u-dm4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-4.5" id="gDp-gm-VOm"/>
-                            <constraint firstItem="0g4-yU-Fcl" firstAttribute="leading" secondItem="4mf-3u-dm4" secondAttribute="trailing" constant="8" id="jgy-1A-L9z"/>
-                            <constraint firstItem="4mf-3u-dm4" firstAttribute="leading" secondItem="M4u-yt-LbH" secondAttribute="trailing" constant="8" id="s6f-T8-p6w"/>
-                            <constraint firstItem="4mf-3u-dm4" firstAttribute="top" secondItem="W6w-Ex-6JB" secondAttribute="bottom" constant="15" id="yJq-oY-aXb"/>
+                            <constraint firstItem="H1x-JQ-B4e" firstAttribute="top" secondItem="b4S-St-YcD" secondAttribute="top" constant="7" id="3la-rd-vXX"/>
+                            <constraint firstItem="H1x-JQ-B4e" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="LTL-kH-FHi"/>
+                            <constraint firstItem="H1x-JQ-B4e" firstAttribute="leading" secondItem="b4S-St-YcD" secondAttribute="leading" constant="19" id="QoE-mw-0Cd"/>
+                            <constraint firstItem="b4S-St-YcD" firstAttribute="trailing" secondItem="H1x-JQ-B4e" secondAttribute="trailing" constant="21" id="irK-7d-eOO"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="b4S-St-YcD"/>
                     </view>
                     <connections>
                         <outlet property="decryptButton" destination="0g4-yU-Fcl" id="Psi-fy-Vl1"/>
                         <outlet property="inputBox" destination="W6w-Ex-6JB" id="Mcw-wl-Naq"/>
                         <outlet property="keyBox" destination="4mf-3u-dm4" id="YjA-0w-h77"/>
                         <outlet property="outputBox" destination="bix-VT-GtJ" id="y9k-aH-xYH"/>
+                        <outlet property="settingToggle" destination="XC2-l2-aPr" id="G9y-cg-cPV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
