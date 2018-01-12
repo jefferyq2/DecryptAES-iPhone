@@ -28,4 +28,4 @@ This app uses the [Output FeedBack (OFB)](https://en.wikipedia.org/wiki/Block_ci
 
 ## Disclaimer
 * Standard messaging rates may apply.
-* I make no promises that the encryption used in this program is uncrackable. This program uses [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift) to perform the encryption and decryption.
+* I make no promises that the encryption used in this program is uncrackable. This app uses [CryptoSwift](https://github.com/krzyzanowskim/CryptoSwift) to perform the encryption and decryption.
